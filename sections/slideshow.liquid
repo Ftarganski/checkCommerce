@@ -121,7 +121,22 @@
         tabindex="-1"
       >
         <div class="slideshow__media banner__media media{% if block.settings.image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
-          {%- if block.settings.image -%}
+          {%- if block.settings.image_mobile != blank -%}
+            <picture>
+              <source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 750 }}">
+              <source
+                media="(min-width: 750px)"
+                srcset="{{ block.settings.image | image_url: width: 1500, height: 750 }}"
+              >
+              <img
+                src="{{ block.settings.image_mobile | image_url: width: 750, height: 750 }}"
+                width="750"
+                height="750"
+                alt="{{ block.settings.image_mobile.alt | escape }}"
+                style="display: block; width: 100%; height: auto;"
+              >
+            </picture>
+          {%- elsif block.settings.image -%}
             {%- liquid
               assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
               if section.settings.image_behavior == 'ambient'
@@ -396,6 +411,11 @@
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
         },
         {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Imagem para dispositivos móveis"
+        },
+        {
           "type": "range",
           "id": "image_overlay_opacity",
           "min": 0,
@@ -452,12 +472,12 @@
         {
           "type": "header",
           "content": "t:sections.slideshow.blocks.slide.settings.header_button.content"
-        },        
+        },
         {
           "type": "text",
           "id": "button_label",
           "default": "t:sections.slideshow.blocks.slide.settings.button_label.default",
-          "label": "t:sections.slideshow.blocks.slide.settings.button_label.label", 
+          "label": "t:sections.slideshow.blocks.slide.settings.button_label.label",
           "info": "t:sections.slideshow.blocks.slide.settings.button_label.info"
         },
         {
@@ -474,7 +494,7 @@
         {
           "type": "header",
           "content": "t:sections.slideshow.blocks.slide.settings.header_layout.content"
-        },         
+        },
         {
           "type": "checkbox",
           "id": "show_text_box",
@@ -564,7 +584,7 @@
           ],
           "default": "center",
           "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.label"
-        },        
+        },
         {
           "type": "color_scheme",
           "id": "color_scheme",
