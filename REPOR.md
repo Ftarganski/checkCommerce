@@ -1,16 +1,49 @@
-# Relatório de Alterações Técnicas
+# 🛍️ CheckCommerce Test Shopify Liquid
 
-Este documento detalha todas as mudanças realizadas no tema Dawn para atender aos requisitos do teste técnico, incluindo justificativas e benefícios de cada ajuste.
+<div align="center">
+
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=for-the-badge&logo=javascript)
+![HTML](https://img.shields.io/badge/HTML-5-orange?style=for-the-badge&logo=html5)
+![CSS](https://img.shields.io/badge/CSS-3-blue?style=for-the-badge&logo=css3)
+![Liquid](https://img.shields.io/badge/Liquid-Shopify-7952B3?style=for-the-badge&logo=shopify)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+**Customizações realizadas no tema Dawn para atender aos requisitos técnicos.** 🎉
+
+_Uma aplicação JS + HTML + CSS + Liquid focada em arquitetura moderna, componentes reutilizáveis e experiência de usuário responsiva._
+
+</div>
 
 ---
 
-## 1. Seção "Imagem com texto" (`sections/image-with-text.liquid`)
+## 🗂️ Estrutura do Projeto
+```
+shopify-dawn-custom/
+├── layout/
+│   └── theme.liquid             # Ajustes de performance (preconnect)
+├── sections/
+│   ├── image-with-text.liquid   # Suporte a vídeo no lugar da imagem
+│   ├── slideshow.liquid         # Suporte a imagens otimizadas para mobile
+│   └── ...                      # Outras seções originais do tema
+├── assets/
+│   └── custom-scripts.js        # Recomendação de centralização de JS
+├── snippets/
+│   └── ...                      # Componentes auxiliares
+```
 
-**O que foi alterado:**
+---
+
+## 🧩 Relatório de Alterações Técnicas
+
+Este documento detalha todas as mudanças realizadas no tema Dawn para atender aos requisitos do teste técnico, incluindo justificativas e benefícios de cada ajuste.
+
+### 1️⃣ Seção **Imagem com texto** (`image-with-text.liquid`)
+
+❓ **O que foi alterado:**
 - Adicionado um campo do tipo `video` ao schema da seção, permitindo selecionar um vídeo hospedado no Shopify pelo editor visual.
 - Alterado o template para exibir o vídeo (com autoplay, muted, loop, playsinline e lazy loading) caso o campo esteja preenchido. Caso contrário, mantém o comportamento padrão de exibir a imagem.
 
-**Como foi alterado:**
+⚙️ **Como foi alterado:**
 - No schema, incluído:
   ```json
   {
@@ -22,24 +55,21 @@ Este documento detalha todas as mudanças realizadas no tema Dawn para atender a
   ```
 - No template, inserido bloco condicional para renderizar o vídeo com os atributos recomendados para performance e acessibilidade.
 
-**Por que foi alterado:**
-- Atende ao requisito de permitir exibição de vídeo no lugar da imagem, editável pelo customizador e hospedado no Shopify.
-
-**Benefícios:**
+✅ **Benefícios:**
 - Flexibilidade para o lojista exibir vídeos institucionais ou promocionais.
 - Melhora a experiência visual e engajamento do usuário.
 - Lazy loading reduz o impacto no carregamento inicial da página.
 
 ---
 
-## 2. Seção "Apresentação de slides" (`sections/slideshow.liquid`)
+### 2️⃣ Seção **Apresentação de slides** (`slideshow.liquid`)
 
-**O que foi alterado:**
+❓ **O que foi alterado:**
 - Adicionado campo `image_mobile` ao schema do bloco de slide, permitindo selecionar uma imagem alternativa para dispositivos móveis.
 - Alterado o template para exibir a imagem mobile apenas em telas pequenas (até 749px) e a imagem desktop em telas grandes (a partir de 750px), usando o elemento `<picture>` e media queries.
 - Adicionado atributos `width`, `height` e `alt` para acessibilidade e performance.
 
-**Como foi alterado:**
+⚙️ **Como foi alterado:**
 - No schema, incluído:
   ```json
   {
@@ -57,17 +87,47 @@ Este documento detalha todas as mudanças realizadas no tema Dawn para atender a
   </picture>
   ```
 
-**Por que foi alterado:**
-- Atende ao requisito de exibir imagens otimizadas para cada dispositivo, melhorando a experiência mobile.
-
-**Benefícios:**
+✅ **Benefícios:**
 - Reduz o consumo de banda em dispositivos móveis.
 - Garante que imagens sejam exibidas corretamente e com melhor qualidade em cada contexto.
 - Lazy loading nas imagens mobile melhora o tempo de carregamento.
 
 ---
 
-## 3. Recomendação de melhoria de desempenho web
+### 3️⃣ Performance Web
+- Adicionado `loading="lazy"` em imagens do slideshow.
+- Inclusão de `<link rel="preconnect">` para fontes externas em `theme.liquid`.
+- Reforço sobre minificação e eliminação de recursos não utilizados.
+- ✅ **Benefício**: Melhora métricas **LCP** e Web Vitals, reduzindo tempo de carregamento.
+
+---
+
+## ⚡ Melhorias Recomendadas
+
+1. **Acessibilidade**
+   - Garantir `alt` descritivo em todas imagens.
+   - Adicionar legendas (`<track>`) em vídeos.
+   - ✅ **Impacto**: Inclusão de usuários de leitores de tela e SEO.
+
+2. **JavaScript Inline**
+   - Substituir scripts inline (`<script>`) por arquivos externos em `assets/`.
+   - ✅ **Impacto**: Melhor cache, manutenção e minificação.
+
+3. **Responsividade**
+   - Revisar seções como `collage.liquid`, `multicolumn.liquid`, `multirow.liquid`.
+   - Uso consistente de classes utilitárias e media queries.
+   - ✅ **Impacto**: Layout consistente em todos dispositivos.
+
+---
+
+## 🧪 Testes Automatizados
+
+- **Unitários (JS):** Jest recomendado para lógica isolada.
+- **Integração visual (Liquid):** Cypress ou Playwright.
+- ✅ **Benefício**: Redução de regressões e maior confiabilidade em entregas.
+
+
+
 
 **O que foi sugerido e aplicado:**
 - Adicionado o atributo `loading="lazy"` nas imagens do slideshow para garantir que apenas imagens visíveis sejam carregadas inicialmente.
