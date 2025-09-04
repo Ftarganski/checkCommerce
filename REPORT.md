@@ -104,49 +104,7 @@ Este documento detalha todas as mudanças realizadas no tema Dawn para atender a
 
 ## ⚡ Melhorias Recomendadas
 
-1. **Acessibilidade**
-   - Garantir `alt` descritivo em todas imagens.
-   - Adicionar legendas (`<track>`) em vídeos.
-   - ✅ **Impacto**: Inclusão de usuários de leitores de tela e SEO.
-
-2. **JavaScript Inline**
-   - Substituir scripts inline (`<script>`) por arquivos externos em `assets/`.
-   - ✅ **Impacto**: Melhor cache, manutenção e minificação.
-
-3. **Responsividade**
-   - Revisar seções como `collage.liquid`, `multicolumn.liquid`, `multirow.liquid`.
-   - Uso consistente de classes utilitárias e media queries.
-   - ✅ **Impacto**: Layout consistente em todos dispositivos.
-
----
-
-## 🧪 Testes Automatizados
-
-- **Unitários (JS):** Jest recomendado para lógica isolada.
-- **Integração visual (Liquid):** Cypress ou Playwright.
-- ✅ **Benefício**: Redução de regressões e maior confiabilidade em entregas.
-
-
-
-
-**O que foi sugerido e aplicado:**
-- Adicionado o atributo `loading="lazy"` nas imagens do slideshow para garantir que apenas imagens visíveis sejam carregadas inicialmente.
-- Inclusão da tag `<link rel="preconnect">` para servidores de fontes externas no arquivo `layout/theme.liquid`, removendo a condição para garantir que o preconnect sempre seja utilizado, independentemente das configurações de fonte.
-- Reforçada a importância da minificação de arquivos CSS/JS e eliminação de recursos não utilizados.
-
-**Por que foi sugerido e realizado:**
-- Lazy loading é uma boa prática recomendada pelo Google e pelo Web Vitals, reduzindo o tempo de carregamento e o consumo de banda.
-- O preconnect sempre ativo garante que a conexão com servidores de fontes externas será otimizada em todos os cenários, acelerando o carregamento das fontes e evitando atrasos, mesmo que o lojista altere configurações de fonte no futuro.
-- Minificação e eliminação de recursos não utilizados reduzem o peso da página e melhoram a performance geral.
-
-**Benefícios:**
-- Melhora o LCP (Largest Contentful Paint) e o tempo de resposta em dispositivos móveis e desktop.
-- Reduz o consumo de recursos e melhora a experiência do usuário.
-- Garante performance consistente, independentemente das configurações de fonte escolhidas pelo lojista.
-
-### Pontos de melhoria identificados nas seções do tema:
-
-1. **Acessibilidade em imagens e vídeos**
+### 1️⃣ **Acessibilidade em imagens e vídeos**
    - Diversos arquivos de seção que exibem imagens (ex: `image-banner.liquid`, `featured-product.liquid`, `slideshow.liquid`) podem não garantir que o atributo `alt` esteja sempre preenchido corretamente, o que prejudica usuários de leitores de tela e SEO. Além disso, vídeos podem não incluir legendas/captions, dificultando o acesso para pessoas com deficiência auditiva.
    - **Exemplo de problema:**
      ```liquid
@@ -165,7 +123,9 @@ Este documento detalha todas as mudanças realizadas no tema Dawn para atender a
      ```
    - **Melhoria recomendada:** Validar que todas as imagens tenham atributo `alt` descritivo e que vídeos incluam legendas ou transcrições sempre que possível.
 
-2. **Uso de JavaScript Inline**
+---
+
+### 2️⃣ **Uso de JavaScript Inline**
    - Seções como `cart-drawer.liquid` e `cart-notification-product.liquid` podem conter scripts inline ou dependências JS diretamente no arquivo Liquid. Isso dificulta a minificação, o cache e a manutenção do código.
    - **Exemplo de problema:**
      ```liquid
@@ -180,7 +140,9 @@ Este documento detalha todas as mudanças realizadas no tema Dawn para atender a
      (Mover o código JS para um arquivo externo e referenciar via asset)
    - **Melhoria recomendada:** Centralizar scripts em arquivos JS externos e evitar código inline, facilitando otimização de performance e organização do projeto.
 
-3. **Falta de Responsividade em Componentes Customizados**
+---
+
+### 3️⃣ **Falta de Responsividade em Componentes Customizados**
    - Seções como `collage.liquid`, `multicolumn.liquid` e `multirow.liquid` podem não estar totalmente otimizadas para todos tamanhos de tela, especialmente em layouts mais complexos. Isso pode prejudicar a experiência do usuário em dispositivos móveis.
    - **Exemplo de problema:**
      ```liquid
@@ -204,23 +166,50 @@ Este documento detalha todas as mudanças realizadas no tema Dawn para atender a
      }
      ```
    - **Melhoria recomendada:** Revisar e garantir que todos componentes utilizem classes responsivas e media queries adequadas, realizando testes em dispositivos móveis e desktop para assegurar boa usabilidade.
-
 ---
 
-## 4. Testes automatizados
+## 🧪 Testes Automatizados
 
-**Recomendação:**
-- Estruturar testes unitários para arquivos JavaScript do tema, utilizando frameworks como Jest.
-- Para arquivos Liquid, recomenda-se testes de integração visual (ex: Cypress, Playwright).
-
-**Benefícios:**
-- Maior confiabilidade e facilidade de manutenção do tema.
-- Redução de bugs e problemas em funcionalidades críticas.
+- **Unitários (JS):** Jest recomendado para lógica isolada.
+- **Integração visual (Liquid):** Cypress ou Playwright.
+- ✅ **Benefício**: Redução de regressões e maior confiabilidade em entregas.
 
 **Adendo:**
 Embora a realização de testes automatizados para templates e temas Shopify não seja uma prática universal entre todos desenvolvedores do mercado, ela é cada vez mais recomendada em projetos profissionais e por agências especializadas. O uso de testes (unitários para JS e integração visual para Liquid) garante maior qualidade, facilita atualizações e reduz riscos de regressão, sendo um diferencial competitivo para equipes que buscam excelência e confiabilidade em software frontend.
 
 ---
 
-## Resumo
-Essas alterações tornam o tema Dawn mais flexível, moderno e otimizado para diferentes dispositivos, além de seguir boas práticas de performance e acessibilidade recomendadas para temas Shopify.
+## 👨‍💻 Autor
+
+Desenvolvido com ❤️ por [Ftarganski](https://github.com/Ftarganski)
+
+- 📧 Email: [dev@targanski.com](mailto:dev@targanski.com)
+- 💼 LinkedIn: [Ftarganski](https://www.linkedin.com/in/targanski/)
+- 🐱 GitHub: [Ftarganski](https://github.com/Ftarganski)
+
+---
+
+## 📄 Licença
+
+Projeto licenciado sob **MIT License** - veja o arquivo [LICENSE](LICENSE).
+
+---
+
+## 🙏 Agradecimentos
+
+- **CheckCommerce** pela oportunidade
+- **Liquid** pelo framework
+- **Comunidade Open Source** pelas ferramentas
+
+---
+
+<div align="center">
+
+**⭐ Se este projeto te ajudou, deixe uma estrela!**
+
+Feito com ☕ por **Ftarganski**
+
+
+
+
+
